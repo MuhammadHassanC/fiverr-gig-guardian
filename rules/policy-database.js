@@ -2,16 +2,111 @@
  * Fiverr Policy & Community Guidelines Database
  * High-precision regulatory rule set mapping prohibited keywords, regex patterns,
  * severity weights, and official Fiverr Community Standards references.
+ * Updated: November 2026 (Includes Trading / EA / Prop Firm / Bot Specializations)
  */
 
 const FIVERR_POLICY_DATABASE = {
-  version: "2026.11",
+  version: "2026.11.2",
   lastUpdated: "2026-11-19",
   categories: {
+    // 1. PROP FIRM CHEATING & ACCOUNT MANAGEMENT (CRITICAL - Instant Ban)
+    PROP_FIRM_CHEATING_MANAGEMENT: {
+      id: "PROP_FIRM_CHEATING_MANAGEMENT",
+      name: "Prop Firm Passing & Account Management",
+      severity: "CRITICAL",
+      fiverrRule: "Prohibited Financial Services & Academic/Financial Cheating Policy",
+      description: "Fiverr strictly bans offering to pass prop firm challenges (FTMO, MFF, etc.) using automated HFT bots, account management, or third-party trading on client accounts.",
+      safeAlternative: "Offer risk management consultation, algorithmic backtesting, or custom strategy coding for personal accounts.",
+      keywords: [
+        "pass prop firm", "prop firm pass", "pass ftmo", "ftmo pass",
+        "hft prop firm", "prop firm bot", "pass funded account",
+        "funded account pass", "prop firm challenge pass", "mff pass",
+        "fundednext pass", "pass evaluation", "evaluation pass",
+        "prop firm passing bot", "hft passing bot", "pass your prop firm",
+        "prop firm ea", "ftmo passing bot"
+      ],
+      patterns: [
+        /\b(pass|passing)\s+.*?\b(prop\s*firm|ftmo|mff|funded\s*account|challenge|evaluation)\b/i,
+        /\b(prop\s*firm|ftmo)\s+.*?\b(pass|passing|bot|ea)\b/i,
+        /\b(hft\s+prop\s*firm\s+bot)\b/i
+      ]
+    },
+
+    // 2. UNLICENSED FINANCIAL MANAGEMENT & SIGNALS (CRITICAL - Regulatory Violation)
+    UNLICENSED_FINANCIAL_MANAGEMENT: {
+      id: "UNLICENSED_FINANCIAL_MANAGEMENT",
+      name: "Unlicensed Account Management & Trading Signals",
+      severity: "CRITICAL",
+      fiverrRule: "Financial Disclaimers & Unlicensed Financial Management Policy",
+      description: "Managing other people's trading accounts, offering pooled funds, or selling uncertified financial signals violates international financial regulations and Fiverr ToS.",
+      safeAlternative: "Focus exclusively on software development (e.g. 'build custom MT5 indicator', 'code automated strategy script').",
+      keywords: [
+        "forex account management", "account management", "fund management",
+        "manage your account", "trade for you", "copy trade service",
+        "copy trading service", "investment management", "forex signals",
+        "vip signals", "crypto signals", "daily signals", "trading signals",
+        "telegram signals", "signals group", "binary signals", "sure win signals"
+      ],
+      patterns: [
+        /\b(forex|crypto|trading)\s+.*?\b(account\s+management|fund\s+management)\b/i,
+        /\b(manage\s+your\s+(forex|crypto|trading)\s+account)\b/i,
+        /\b(vip|daily|sure\s*win|telegram)\s+.*?\b(signals|signal\s+group)\b/i,
+        /\b(copy\s+trading\s+service)\b/i
+      ]
+    },
+
+    // 3. DECOMPILATION, CRACKING & IP THEFT (CRITICAL - Permanent Account Ban)
+    DECOMPILATION_IP_THEFT: {
+      id: "DECOMPILATION_IP_THEFT",
+      name: "Decompilation, EA Cracking & IP Theft",
+      severity: "CRITICAL",
+      fiverrRule: "Intellectual Property Rights, Software Cracking & Reverse Engineering",
+      description: "Offering to decompile (.ex4/.ex5), reverse engineer, remove licensing locks, or clone protected commercial EAs/indicators results in permanent account suspension.",
+      safeAlternative: "Build custom strategies from scratch based on user rules or open-source trading logic.",
+      keywords: [
+        "decompile", "decompiling", "decompilation", "ex4 to mq4", "ex5 to mq5",
+        "reverse engineer ea", "remove ea license", "remove license lock",
+        "bypass ea lock", "crack ea", "cracked ea", "bypass dll",
+        "unlock ea", "decompile expert advisor", "clone indicator",
+        "clone ea", "rip indicator", "steal source code"
+      ],
+      patterns: [
+        /\b(decompile|decompiling|decompilation)\b/i,
+        /\b(ex[45]\s+to\s+mq[45])\b/i,
+        /\b(remove|bypass|unlock)\s+.*?\b(license|ea\s+lock|dll\s+protection|protection)\b/i,
+        /\b(reverse\s+engineer)\s+.*?\b(ea|indicator|bot|software|code)\b/i
+      ]
+    },
+
+    // 4. GUARANTEED PROFITS & MISLEADING ACCURACY CLAIMS (HIGH RISK)
+    GUARANTEED_FINANCIAL_CLAIMS: {
+      id: "GUARANTEED_FINANCIAL_CLAIMS",
+      name: "Guaranteed Profits & Accuracy Claims",
+      severity: "HIGH",
+      fiverrRule: "Misleading Services & False Commercial Guarantees Policy",
+      description: "Using words like 'profitable ea', 'guaranteed profit', '99% win rate', or 'no loss' triggers automated gig denial during editorial review.",
+      safeAlternative: "Use technical phrasing: 'backtested quantitative strategy', 'risk-managed algorithmic EA', 'rule-based trading system'.",
+      keywords: [
+        "profitable ea", "profitable bot", "profitable trading bot",
+        "guaranteed profit", "100% win rate", "99% win rate", "95% win rate",
+        "90% win rate", "no loss", "zero loss", "holy grail ea",
+        "get rich", "guaranteed sales", "make money fast", "guaranteed roi",
+        "passive income guarantee", "risk free profit", "high accuracy bot",
+        "high accuracy ea", "automated profit", "sure profit"
+      ],
+      patterns: [
+        /\b(profitable)\s+(ea|bot|trading\s*bot|expert\s*advisor|robot)\b/i,
+        /\b(guaranteed|risk[- ]free|sure)\s+.*?\b(profit|profits|roi|return|income|win\s*rate|winning)\b/i,
+        /\b(100%|99%|98%|95%|90%)\s+.*?\b(win\s*rate|winning|accuracy|profitable)\b/i,
+        /\b(no\s+loss|zero\s+loss|zero\s+drawdown)\b/i
+      ]
+    },
+
+    // 5. ACADEMIC DISHONESTY & HOMEWORK (CRITICAL - Instant Strike)
     ACADEMIC_DISHONESTY: {
       id: "ACADEMIC_DISHONESTY",
       name: "Academic Dishonesty & School Work",
-      severity: "CRITICAL", // Instant gig rejection / warning strike
+      severity: "CRITICAL",
       fiverrRule: "Academic Services & Homework Assistance Policy",
       description: "Fiverr strictly prohibits doing homework, writing essays, preparing dissertations, or taking tests on behalf of students.",
       safeAlternative: "Offer tutoring, conceptual guidance, thesis formatting, or proofreading instead of doing the work.",
@@ -32,6 +127,7 @@ const FIVERR_POLICY_DATABASE = {
       ]
     },
 
+    // 6. OFF-PLATFORM CONTACT & EXTERNAL MESSAGING (CRITICAL - Instant Strike)
     OFF_PLATFORM_COMMUNICATION: {
       id: "OFF_PLATFORM_COMMUNICATION",
       name: "Off-Platform Contact & Payments",
@@ -57,6 +153,7 @@ const FIVERR_POLICY_DATABASE = {
       ]
     },
 
+    // 7. FAKE REVIEWS & METRIC MANIPULATION (CRITICAL)
     FAKE_REVIEWS_MANIPULATION: {
       id: "FAKE_REVIEWS_MANIPULATION",
       name: "Fake Reviews & Metric Manipulation",
@@ -70,8 +167,7 @@ const FIVERR_POLICY_DATABASE = {
         "amazon review", "boost rating", "5 star review", "positive reviews",
         "buy reviews", "buy followers", "buy likes", "buy views",
         "buy subscribers", "fake traffic", "bot traffic", "boost follower",
-        "boost subscriber", "google maps review", "tripadvisor review",
-        "app store review", "positive feedback", "5 star rating"
+        "boost subscriber", "google maps review", "tripadvisor review"
       ],
       patterns: [
         /\b(5\s*star|positive|google|trustpilot|amazon|yelp|play\s*store|app\s*store)\s+.*?\b(review|reviews|rating|ratings|feedback)\b/i,
@@ -80,6 +176,7 @@ const FIVERR_POLICY_DATABASE = {
       ]
     },
 
+    // 8. HACKING & EXPLOITS (CRITICAL)
     HACKING_EXPLOITS_RECOVERY: {
       id: "HACKING_EXPLOITS_RECOVERY",
       name: "Hacking, Exploits & Account Recovery",
@@ -103,28 +200,25 @@ const FIVERR_POLICY_DATABASE = {
       ]
     },
 
-    GUARANTEED_FINANCIAL_CLAIMS: {
-      id: "GUARANTEED_FINANCIAL_CLAIMS",
-      name: "Guaranteed Profits & Get-Rich-Quick",
+    // 9. BINARY OPTIONS & HIGH-RISK DERIVATIVES (HIGH RISK)
+    BINARY_OPTIONS_BOTS: {
+      id: "BINARY_OPTIONS_BOTS",
+      name: "Binary Options & Unregulated Trading Bots",
       severity: "HIGH",
-      fiverrRule: "Misleading Services & Financial Disclaimers Policy",
-      description: "Promising guaranteed financial returns, ROI, trading win-rates, or instant profits triggers immediate regulatory takedowns.",
-      safeAlternative: "Describe the quantitative model, backtested parameters, or risk management strategy without promising returns.",
+      fiverrRule: "High-Risk Derivatives & Gambling Automation Policy",
+      description: "Binary options platforms are classified as financial gambling in multiple jurisdictions; bots targeting them face heavy compliance rejections.",
+      safeAlternative: "Develop EAs for regulated spot forex or futures markets (MetaTrader, TradingView, NinjaTrader).",
       keywords: [
-        "guaranteed profit", "100% win rate", "get rich", "guaranteed sales",
-        "make money fast", "guaranteed roi", "passive income guarantee",
-        "crypto pump", "insider signals", "forex guarantee", "guaranteed return",
-        "double your money", "make $1000 daily", "automated income",
-        "guaranteed earnings", "risk free profit", "guaranteed income",
-        "guarantee 100%", "guaranteed winning"
+        "binary bot", "binary options bot", "deriv bot", "pocket option bot",
+        "quotex bot", "iq option bot", "binary trading bot", "pocket option ea",
+        "quotex signals", "deriv binary bot"
       ],
       patterns: [
-        /\b(guaranteed|risk[- ]free|100%)\s+.*?\b(profit|profits|roi|return|income|sales|win\s*rate|winning)\b/i,
-        /\b(get\s+rich|make\s+money\s+fast|double\s+your\s+money)\b/i,
-        /\b(crypto\s+pump|insider\s+trading\s+signals)\b/i
+        /\b(binary\s+options?|deriv|pocket\s*option|quotex|iq\s*option)\s+.*?\b(bot|ea|signals?|automation)\b/i
       ]
     },
 
+    // 10. THIRD-PARTY TOS & DATA SCRAPING (HIGH RISK)
     THIRD_PARTY_TOS_SCRAPING: {
       id: "THIRD_PARTY_TOS_SCRAPING",
       name: "Third-Party ToS Violations & Data Scraping",
@@ -147,6 +241,7 @@ const FIVERR_POLICY_DATABASE = {
       ]
     },
 
+    // 11. PIRATED LICENSES & COPYRIGHT (CRITICAL)
     COPYRIGHT_PIRACY_LICENSES: {
       id: "COPYRIGHT_PIRACY_LICENSES",
       name: "Pirated Licenses & Copyright Reselling",
@@ -158,8 +253,7 @@ const FIVERR_POLICY_DATABASE = {
         "canva pro lifetime", "netflix account", "spotify lifetime",
         "windows product key", "office 365 lifetime", "nulled",
         "cracked script", "adobe creative cloud crack", "free license key",
-        "sell iptv", "iptv subscription", "cracked plugin", "gpl cracked",
-        "lifetime license", "cheap windows key"
+        "sell iptv", "iptv subscription", "cracked plugin", "gpl cracked"
       ],
       patterns: [
         /\b(canva\s*pro|netflix|spotify|office\s*365|windows\s*1[01])\s+.*?\b(lifetime|account|cheap|crack|key|license)\b/i,
@@ -168,6 +262,7 @@ const FIVERR_POLICY_DATABASE = {
       ]
     },
 
+    // 12. FORGERY & FAKE DOCUMENTS (CRITICAL)
     FORGERY_FAKE_DOCUMENTS: {
       id: "FORGERY_FAKE_DOCUMENTS",
       name: "Document Forgery & Fake Identity",
@@ -179,8 +274,7 @@ const FIVERR_POLICY_DATABASE = {
         "fake id", "fake passport", "fake certificate", "diploma maker",
         "bank statement edit", "utility bill edit", "doctor note",
         "fake receipt", "driver license edit", "ssn edit", "fake diploma",
-        "novelty document", "edit bank statement", "edit paystub",
-        "counterfeit document", "edit pdf statement"
+        "novelty document", "edit bank statement", "edit paystub"
       ],
       patterns: [
         /\b(fake|counterfeit|novelty)\s+(id|passport|diploma|certificate|license|document)\b/i,
@@ -188,57 +282,18 @@ const FIVERR_POLICY_DATABASE = {
       ]
     },
 
-    MEDICAL_LEGAL_ADVICE: {
-      id: "MEDICAL_LEGAL_ADVICE",
-      name: "Uncertified Medical or Legal Claims",
-      severity: "HIGH",
-      fiverrRule: "Regulated Professional Advice & Healthcare Policy",
-      description: "Offering clinical diagnoses, prescription cures, or unaccredited legal representation is forbidden for user safety.",
-      safeAlternative: "Focus on general fitness routines, diet templates, or legal document proofreading.",
-      keywords: [
-        "cure cancer", "medical prescription", "doctor consultation",
-        "cure disease", "weight loss cure", "cure diabetes", "diagnose illness",
-        "prescription drug", "legal representation in court"
-      ],
-      patterns: [
-        /\b(cure|prescribe|treat)\s+.*?\b(cancer|diabetes|illness|disease|infection)\b/i,
-        /\b(medical\s+prescription|legal\s+representation)\b/i
-      ]
-    },
-
-    IMPERSONATING_FIVERR_BADGES: {
-      id: "IMPERSONATING_FIVERR_BADGES",
-      name: "Impersonating Fiverr Badges",
-      severity: "HIGH",
-      fiverrRule: "Fiverr Trademark & Badge Misrepresentation",
-      description: "Using Fiverr internal branding like 'Fiverr Choice' or 'Top Rated Seller' in your title triggers manual review.",
-      safeAlternative: "Use authentic quality descriptions like 'Professional', 'Senior Developer', or 'High Quality'.",
-      keywords: [
-        "fiverr choice", "fiverr's choice", "top rated seller guaranteed",
-        "official fiverr", "fiverr pro guaranteed", "fiverr staff"
-      ],
-      patterns: [
-        /\b(fiverr('s)?\s+(choice|pro|official|staff|guaranteed))\b/i,
-        /\b(top\s*rated\s*seller\s*guaranteed)\b/i
-      ]
-    },
-
-    UNREALISTIC_GUARANTEES: {
-      id: "UNREALISTIC_GUARANTEES",
-      name: "Spammy / Unrealistic Promises",
+    // 13. SPAMMY KEYWORD STUFFING (MEDIUM RISK - Gig Disapproval / De-ranking)
+    KEYWORD_STUFFING_REDUNDANCY: {
+      id: "KEYWORD_STUFFING_REDUNDANCY",
+      name: "Keyword Stuffing & Redundant Synonyms",
       severity: "MEDIUM",
-      fiverrRule: "Editorial Guidelines & Commercial Disclaimers",
-      description: "Making claims of #1 rank in 24 hours or 100% money back in titles often leads to buyer dispute penalties.",
-      safeAlternative: "Describe proven methods: 'White-Hat SEO Optimization', 'Conversion Focused'.",
-      keywords: [
-        "100% satisfaction or money back", "rank #1 in 24 hours",
-        "guaranteed google first page", "viral in 1 hour", "instant ranking",
-        "100% money back guarantee"
-      ],
+      fiverrRule: "Gig Title Editorial & Quality Guidelines",
+      description: "Stacking repetitive synonyms (e.g. 'bot expert advisor eas indicator robot') triggers editorial rejection: 'Your title contains repetitive keywords.'",
+      safeAlternative: "Choose ONE primary clear term: e.g. 'I will develop a custom MT5 Expert Advisor' instead of stacking 'bot ea expert advisor'.",
+      keywords: [], // Handled by pattern & frequency analyzer
       patterns: [
-        /\b(rank\s+#?1\s+in\s+24\s*(hours|hrs)|viral\s+in\s+(1|one)\s*hour)\b/i,
-        /\b(100%\s+money\s*back\s*guarantee)\b/i,
-        /\b(guaranteed\s+(first|1st)\s+page)\b/i
+        /\b(bot|robot)\b.*?\b(expert\s*advisor|ea|eas)\b.*?\b(bot|robot|expert\s*advisor|ea|eas)\b/i,
+        /\b(mt4\s+mt5|mt5\s+mt4)\b.*?\b(bot|ea|indicator)\b.*?\b(bot|ea|indicator)\b.*?\b(bot|ea|indicator)\b/i
       ]
     }
   },
