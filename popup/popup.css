@@ -1,0 +1,478 @@
+/* Fiverr Gig Guardian — Extension Popup Styling
+   Institutional High-Precision Design (Linear / Raycast Style) */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 400px;
+  min-height: 540px;
+  background-color: #0b0f19;
+  color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.fgg-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 540px;
+}
+
+/* Header */
+.fgg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: #0f172a;
+  border-bottom: 1px solid #1e293b;
+}
+
+.fgg-logo-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fgg-logo-badge {
+  background-color: #10b981;
+  color: #0f172a;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.fgg-app-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: 0.3px;
+}
+
+.fgg-app-subtitle {
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.fgg-version-pill {
+  font-size: 10px;
+  color: #64748b;
+  background-color: #1e293b;
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid #334155;
+  font-family: monospace;
+}
+
+/* Tabs */
+.fgg-tabs {
+  display: flex;
+  background-color: #0f172a;
+  border-bottom: 1px solid #1e293b;
+  padding: 0 12px;
+  gap: 4px;
+}
+
+.fgg-tab-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.fgg-tab-btn:hover {
+  color: #f8fafc;
+}
+
+.fgg-tab-btn.active {
+  color: #10b981;
+  border-bottom-color: #10b981;
+}
+
+/* Tab Contents */
+.fgg-tab-content {
+  display: none;
+  padding: 14px 16px;
+  flex: 1;
+}
+
+.fgg-tab-content.active {
+  display: block;
+}
+
+/* Form Group */
+.fgg-form-group {
+  margin-bottom: 10px;
+}
+
+.fgg-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.fgg-char-pill {
+  font-size: 10px;
+  font-family: monospace;
+  color: #94a3b8;
+}
+
+.fgg-char-pill.optimal { color: #34d399; }
+.fgg-char-pill.warning { color: #fbbf24; }
+.fgg-char-pill.exceeded { color: #f87171; font-weight: 700; }
+
+.fgg-textarea {
+  width: 100%;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  color: #f8fafc;
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: 12px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.fgg-textarea:focus {
+  border-color: #10b981;
+}
+
+/* Sample Quick-Test Buttons */
+.fgg-sample-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.fgg-sample-label {
+  font-size: 10px;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.fgg-sample-btn {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: #94a3b8;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.fgg-sample-btn:hover {
+  background-color: #334155;
+  color: #f8fafc;
+}
+
+/* Inspection Result Card */
+.fgg-result-card {
+  background-color: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 4px;
+}
+
+.fgg-result-card.danger {
+  border-color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
+.fgg-result-card.high-risk {
+  border-color: #f97316;
+  background-color: rgba(249, 115, 22, 0.05);
+}
+
+.fgg-result-card.caution {
+  border-color: #f59e0b;
+  background-color: rgba(245, 158, 11, 0.05);
+}
+
+.fgg-result-card.safe {
+  border-color: #10b981;
+  background-color: rgba(16, 185, 129, 0.05);
+}
+
+.fgg-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.fgg-result-status {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #f8fafc;
+}
+
+.fgg-result-status.danger { color: #f87171; }
+.fgg-result-status.high-risk { color: #fb923c; }
+.fgg-result-status.caution { color: #fbbf24; }
+.fgg-result-status.safe { color: #34d399; }
+
+.fgg-risk-badge {
+  font-size: 10px;
+  font-family: monospace;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: #94a3b8;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.fgg-result-message {
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+/* Flags Section */
+.fgg-flags-section {
+  border-top: 1px solid #1e293b;
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+.fgg-section-heading {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #cbd5e1;
+  letter-spacing: 0.4px;
+  margin-bottom: 6px;
+}
+
+.fgg-flag-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.fgg-flag-chip {
+  background-color: rgba(239, 68, 68, 0.15);
+  border: 1px solid #ef4444;
+  color: #f87171;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.fgg-rule-box {
+  background-color: #0b0f19;
+  border: 1px solid #1e293b;
+  border-left: 3px solid #ef4444;
+  padding: 6px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.fgg-rule-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.fgg-rule-desc {
+  font-size: 10px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* Suggestion Alternative Box */
+.fgg-alt-section {
+  border-top: 1px solid #1e293b;
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+.fgg-alt-display {
+  background-color: #0b0f19;
+  border: 1px solid #10b981;
+  color: #34d399;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.fgg-btn-secondary {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: #f8fafc;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.fgg-btn-secondary:hover {
+  background-color: #334155;
+}
+
+/* Policy List Tab */
+.fgg-policy-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.fgg-policy-card {
+  background-color: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.fgg-policy-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.fgg-policy-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.fgg-severity-tag {
+  font-size: 9px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.fgg-severity-tag.critical {
+  background-color: rgba(239, 68, 68, 0.18);
+  border: 1px solid #ef4444;
+  color: #f87171;
+}
+
+.fgg-severity-tag.high {
+  background-color: rgba(249, 115, 22, 0.18);
+  border: 1px solid #f97316;
+  color: #fb923c;
+}
+
+.fgg-severity-tag.medium {
+  background-color: rgba(245, 158, 11, 0.18);
+  border: 1px solid #f59e0b;
+  color: #fbbf24;
+}
+
+.fgg-policy-card-desc {
+  font-size: 10px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.fgg-policy-card-rule {
+  font-size: 10px;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* Settings Tab */
+.fgg-setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #1e293b;
+}
+
+.fgg-setting-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.fgg-setting-desc {
+  font-size: 10px;
+  color: #94a3b8;
+  margin-top: 2px;
+  max-width: 290px;
+}
+
+.fgg-toggle {
+  width: 16px;
+  height: 16px;
+  accent-color: #10b981;
+  cursor: pointer;
+}
+
+.fgg-developer-card {
+  margin-top: 20px;
+  background-color: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.fgg-dev-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.fgg-dev-meta {
+  font-size: 10px;
+  color: #64748b;
+  margin-bottom: 2px;
+}
+
+/* Footer */
+.fgg-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: #0f172a;
+  border-top: 1px solid #1e293b;
+  font-size: 10px;
+  color: #64748b;
+}

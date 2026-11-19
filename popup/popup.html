@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiverr Gig Guardian</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="fgg-app">
+    <!-- Header -->
+    <header class="fgg-header">
+      <div class="fgg-logo-group">
+        <div class="fgg-logo-badge">FGG</div>
+        <div>
+          <div class="fgg-app-title">Fiverr Gig Guardian</div>
+          <div class="fgg-app-subtitle">Community Standards & Title Policy Shield</div>
+        </div>
+      </div>
+      <div class="fgg-version-pill">v1.0.0</div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="fgg-tabs">
+      <button class="fgg-tab-btn active" data-tab="tester">Title Inspector</button>
+      <button class="fgg-tab-btn" data-tab="policies">Policy Rules (11)</button>
+      <button class="fgg-tab-btn" data-tab="settings">Settings</button>
+    </div>
+
+    <!-- Tab 1: Title Inspector -->
+    <main class="fgg-tab-content active" id="tab-tester">
+      <div class="fgg-form-group">
+        <label for="fgg-title-input" class="fgg-label">
+          Draft Gig Title
+          <span class="fgg-char-pill" id="fgg-char-pill">0 / 80 chars</span>
+        </label>
+        <textarea
+          id="fgg-title-input"
+          class="fgg-textarea"
+          placeholder="e.g. I will do your python programming project and build custom scripts..."
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- Quick Preset Samples for Testing -->
+      <div class="fgg-sample-pills">
+        <span class="fgg-sample-label">Test Samples:</span>
+        <button class="fgg-sample-btn" data-sample="I will do your python homework and assignment">Homework (Banned)</button>
+        <button class="fgg-sample-btn" data-sample="I will build trading bot with guaranteed profit">Profit (High Risk)</button>
+        <button class="fgg-sample-btn" data-sample="I will write Google reviews and boost ratings">Reviews (Banned)</button>
+        <button class="fgg-sample-btn" data-sample="I will build your custom website contact on whatsapp">WhatsApp (Banned)</button>
+        <button class="fgg-sample-btn" data-sample="I will create custom python algorithmic trading bot">Clean Title (Safe)</button>
+      </div>
+
+      <!-- Live Inspection Results Box -->
+      <div class="fgg-result-card" id="fgg-result-card">
+        <div class="fgg-result-header">
+          <div class="fgg-result-status" id="fgg-result-verdict">Ready for Analysis</div>
+          <div class="fgg-risk-badge" id="fgg-risk-badge">Score: 0/100</div>
+        </div>
+
+        <div class="fgg-result-message" id="fgg-result-message">
+          Type or paste a title above to inspect for forbidden words, syntax errors, and Fiverr account strike risks.
+        </div>
+
+        <!-- Detected Flags Container -->
+        <div class="fgg-flags-section" id="fgg-flags-section" style="display: none;">
+          <div class="fgg-section-heading">Prohibited Triggers Detected:</div>
+          <div class="fgg-flag-chips-container" id="fgg-flag-chips"></div>
+          
+          <div class="fgg-rule-box" id="fgg-rule-box">
+            <div class="fgg-rule-title" id="fgg-rule-title"></div>
+            <div class="fgg-rule-desc" id="fgg-rule-desc"></div>
+          </div>
+        </div>
+
+        <!-- Suggested Alternative Box -->
+        <div class="fgg-alt-section" id="fgg-alt-section" style="display: none;">
+          <div class="fgg-section-heading">Safe Rephrasing Alternative:</div>
+          <div class="fgg-alt-display" id="fgg-alt-text"></div>
+          <button type="button" class="fgg-btn-secondary" id="fgg-copy-alt-btn">Copy Safe Title</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Tab 2: Policy Database Rules -->
+    <section class="fgg-tab-content" id="tab-policies">
+      <div class="fgg-policy-list" id="fgg-policy-list">
+        <!-- Rendered dynamically via popup.js -->
+      </div>
+    </section>
+
+    <!-- Tab 3: Settings -->
+    <section class="fgg-tab-content" id="tab-settings">
+      <div class="fgg-setting-item">
+        <div>
+          <div class="fgg-setting-title">Fiverr Search Badge Scanner</div>
+          <div class="fgg-setting-desc">Injects safety assessment badges on gig cards in search and category results.</div>
+        </div>
+        <input type="checkbox" id="setting-search-scanner" class="fgg-toggle" checked>
+      </div>
+
+      <div class="fgg-setting-item">
+        <div>
+          <div class="fgg-setting-title">Gig Creation Real-Time Monitor</div>
+          <div class="fgg-setting-desc">Live word-by-word policy checker while drafting or editing gigs on Fiverr.</div>
+        </div>
+        <input type="checkbox" id="setting-editor-scanner" class="fgg-toggle" checked>
+      </div>
+
+      <div class="fgg-setting-item">
+        <div>
+          <div class="fgg-setting-title">Character Limit Enforcer</div>
+          <div class="fgg-setting-desc">Warns when approaching or exceeding Fiverr's 80-character maximum.</div>
+        </div>
+        <input type="checkbox" id="setting-char-enforcer" class="fgg-toggle" checked>
+      </div>
+
+      <div class="fgg-developer-card">
+        <div class="fgg-dev-title">Developer & Repository Info</div>
+        <div class="fgg-dev-meta">Muhammad Hassan • Algenza Labs</div>
+        <div class="fgg-dev-meta">Repository: github.com/MuhammadHassanC/fiverr-gig-guardian</div>
+        <div class="fgg-dev-meta">Compliance: Fiverr Community Standards (Nov 2026 Updated)</div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="fgg-footer">
+      <span>Zero Account Strikes • Real-Time Protection</span>
+      <span>Fiverr Shield</span>
+    </footer>
+  </div>
+
+  <script src="../rules/policy-database.js"></script>
+  <script src="../core/risk-engine.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
