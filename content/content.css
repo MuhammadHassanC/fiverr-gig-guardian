@@ -1,6 +1,6 @@
-/* Fiverr Gig Guardian — Content Styles
-   Institutional Developer Design (Linear / Raycast Style)
-   Zero AI Glow / Zero Sparkles / Crisp 1px Borders */
+/* Fiverr Gig Guardian — Content Styles (Version 2.0)
+   Institutional High-Precision Design (Linear / Raycast Style)
+   Fixed Floating Tooltips • Anti-Clipping Thumbnail Overlays */
 
 :root {
   --fgg-bg-surface: #0f172a;
@@ -12,115 +12,125 @@
   --fgg-text-muted: #64748b;
   
   --fgg-danger-border: #ef4444;
-  --fgg-danger-bg: rgba(239, 68, 68, 0.12);
+  --fgg-danger-bg: rgba(239, 68, 68, 0.18);
   --fgg-danger-text: #f87171;
 
   --fgg-warning-border: #f59e0b;
-  --fgg-warning-bg: rgba(245, 158, 11, 0.12);
+  --fgg-warning-bg: rgba(245, 158, 11, 0.18);
   --fgg-warning-text: #fbbf24;
 
   --fgg-safe-border: #10b981;
-  --fgg-safe-bg: rgba(16, 185, 129, 0.12);
+  --fgg-safe-bg: rgba(16, 185, 129, 0.18);
   --fgg-safe-text: #34d399;
 }
 
-/* Badge attached to Gig Cards */
+/* ==============================================================================
+   BADGES (Inline & Thumbnail Overlay)
+   ============================================================================== */
 .fgg-badge-container {
-  display: inline-flex;
-  align-items: center;
-  margin: 6px 0;
-  position: relative;
-  z-index: 10;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 11px;
-  line-height: 1;
+  display: flex !important;
+  align-items: center !important;
+  margin: 4px 0 6px 0 !important;
+  position: relative !important;
+  z-index: 20 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 11px !important;
+  line-height: 1 !important;
+  width: fit-content !important;
 }
 
 .fgg-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
-  border: 1px solid transparent;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.4px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: all 0.15s ease !important;
+  border: 1px solid transparent !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* Thumbnail Overlay Badge (Floats top-left on gig image) */
+.fgg-overlay-badge {
+  position: absolute !important;
+  top: 8px !important;
+  left: 8px !important;
+  z-index: 9999 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
 }
 
 .fgg-badge-danger {
-  background-color: var(--fgg-danger-bg);
-  border-color: var(--fgg-danger-border);
-  color: var(--fgg-danger-text);
+  background-color: #450a0a !important;
+  border-color: var(--fgg-danger-border) !important;
+  color: #fca5a5 !important;
 }
 
 .fgg-badge-danger:hover {
-  background-color: rgba(239, 68, 68, 0.22);
+  background-color: #7f1d1d !important;
 }
 
 .fgg-badge-high-risk {
-  background-color: rgba(249, 115, 22, 0.14);
-  border-color: #f97316;
-  color: #fb923c;
+  background-color: #431407 !important;
+  border-color: #ea580c !important;
+  color: #fdba74 !important;
 }
 
 .fgg-badge-high-risk:hover {
-  background-color: rgba(249, 115, 22, 0.24);
+  background-color: #7c2d12 !important;
 }
 
 .fgg-badge-caution {
-  background-color: var(--fgg-warning-bg);
-  border-color: var(--fgg-warning-border);
-  color: var(--fgg-warning-text);
+  background-color: #451a03 !important;
+  border-color: var(--fgg-warning-border) !important;
+  color: #fde68a !important;
 }
 
 .fgg-badge-caution:hover {
-  background-color: rgba(245, 158, 11, 0.22);
+  background-color: #78350f !important;
 }
 
 .fgg-badge-safe {
-  background-color: var(--fgg-safe-bg);
-  border-color: var(--fgg-safe-border);
-  color: var(--fgg-safe-text);
+  background-color: #064e3b !important;
+  border-color: var(--fgg-safe-border) !important;
+  color: #a7f3d0 !important;
 }
 
 .fgg-badge-safe:hover {
-  background-color: rgba(16, 185, 129, 0.22);
+  background-color: #065f46 !important;
 }
 
 .fgg-badge-indicator {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: currentColor;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background-color: currentColor !important;
 }
 
-/* Floating Tooltip Card */
-.fgg-tooltip-card {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  width: 320px;
-  background-color: var(--fgg-bg-surface);
-  border: 1px solid var(--fgg-border);
-  border-radius: 6px;
-  padding: 12px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
-  z-index: 999999;
-  display: none;
-  text-transform: none;
-  text-align: left;
-  color: var(--fgg-text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.4;
-  animation: fggFadeIn 0.12s ease-out;
-}
-
-.fgg-badge-container:hover .fgg-tooltip-card {
-  display: block;
+/* ==============================================================================
+   FLOATING FIXED TOOLTIP (Zero Clipping / Highest Z-Index)
+   ============================================================================== */
+.fgg-floating-tooltip {
+  position: fixed !important;
+  width: 330px !important;
+  max-width: 90vw !important;
+  background-color: var(--fgg-bg-surface) !important;
+  border: 1px solid var(--fgg-border-strong) !important;
+  border-radius: 6px !important;
+  padding: 12px !important;
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.7), 0 10px 15px -5px rgba(0, 0, 0, 0.5) !important;
+  z-index: 2147483647 !important;
+  text-transform: none !important;
+  text-align: left !important;
+  color: var(--fgg-text-primary) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  line-height: 1.4 !important;
+  animation: fggFadeIn 0.12s ease-out !important;
+  pointer-events: auto !important;
 }
 
 @keyframes fggFadeIn {
@@ -129,239 +139,239 @@
 }
 
 .fgg-tooltip-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--fgg-border);
-  margin-bottom: 8px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-bottom: 8px !important;
+  border-bottom: 1px solid var(--fgg-border) !important;
+  margin-bottom: 8px !important;
 }
 
 .fgg-tooltip-title {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
 }
 
-.fgg-tooltip-title.danger { color: var(--fgg-danger-text); }
-.fgg-tooltip-title.high-risk { color: #fb923c; }
-.fgg-tooltip-title.caution { color: var(--fgg-warning-text); }
-.fgg-tooltip-title.safe { color: var(--fgg-safe-text); }
+.fgg-tooltip-title.danger { color: var(--fgg-danger-text) !important; }
+.fgg-tooltip-title.high-risk { color: #fb923c !important; }
+.fgg-tooltip-title.caution { color: var(--fgg-warning-text) !important; }
+.fgg-tooltip-title.safe { color: var(--fgg-safe-text) !important; }
 
 .fgg-tooltip-body {
-  font-size: 12px;
-  color: var(--fgg-text-secondary);
+  font-size: 12px !important;
+  color: var(--fgg-text-secondary) !important;
 }
 
 .fgg-flags-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin: 6px 0 10px 0;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 4px !important;
+  margin: 6px 0 10px 0 !important;
 }
 
 .fgg-flag-chip {
-  background-color: rgba(239, 68, 68, 0.18);
-  border: 1px solid var(--fgg-danger-border);
-  color: var(--fgg-danger-text);
-  font-size: 11px;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-family: monospace;
-  font-weight: 600;
+  background-color: rgba(239, 68, 68, 0.2) !important;
+  border: 1px solid var(--fgg-danger-border) !important;
+  color: #fca5a5 !important;
+  font-size: 11px !important;
+  padding: 2px 6px !important;
+  border-radius: 3px !important;
+  font-family: monospace !important;
+  font-weight: 600 !important;
 }
 
 .fgg-policy-rule {
-  font-size: 11px;
-  color: #cbd5e1;
-  background-color: var(--fgg-bg-surface-elevated);
-  padding: 6px 8px;
-  border-radius: 4px;
-  border-left: 2px solid var(--fgg-danger-border);
-  margin-bottom: 8px;
+  font-size: 11px !important;
+  color: #cbd5e1 !important;
+  background-color: var(--fgg-bg-surface-elevated) !important;
+  padding: 6px 8px !important;
+  border-radius: 4px !important;
+  border-left: 3px solid var(--fgg-danger-border) !important;
+  margin-bottom: 8px !important;
 }
 
 .fgg-legacy-notice {
-  font-size: 11px;
-  color: #94a3b8;
-  line-height: 1.35;
-  margin-bottom: 8px;
+  font-size: 11px !important;
+  color: #94a3b8 !important;
+  line-height: 1.35 !important;
+  margin-bottom: 8px !important;
 }
 
 .fgg-alt-box {
-  background-color: rgba(16, 185, 129, 0.08);
-  border: 1px solid var(--fgg-safe-border);
-  padding: 6px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  color: #34d399;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  border: 1px solid var(--fgg-safe-border) !important;
+  padding: 6px 8px !important;
+  border-radius: 4px !important;
+  font-size: 11px !important;
+  color: #34d399 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
 }
 
 .fgg-alt-title {
-  font-size: 10px;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: #10b981;
+  font-size: 10px !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  color: #10b981 !important;
 }
 
 .fgg-copy-btn {
-  background-color: #1e293b;
-  border: 1px solid var(--fgg-border);
-  color: #f8fafc;
-  padding: 3px 6px;
-  font-size: 10px;
-  border-radius: 3px;
-  cursor: pointer;
-  align-self: flex-start;
-  margin-top: 4px;
-  transition: background-color 0.15s ease;
+  background-color: #1e293b !important;
+  border: 1px solid var(--fgg-border) !important;
+  color: #f8fafc !important;
+  padding: 3px 6px !important;
+  font-size: 10px !important;
+  border-radius: 3px !important;
+  cursor: pointer !important;
+  align-self: flex-start !important;
+  margin-top: 4px !important;
+  transition: background-color 0.15s ease !important;
 }
 
 .fgg-copy-btn:hover {
-  background-color: #334155;
+  background-color: #334155 !important;
 }
 
 /* ==============================================================================
    GIG CREATION & EDIT PANEL STYLES
    ============================================================================== */
 .fgg-editor-panel {
-  margin-top: 10px;
-  background-color: var(--fgg-bg-surface);
-  border: 1px solid var(--fgg-border);
-  border-radius: 6px;
-  padding: 12px 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  color: var(--fgg-text-primary);
-  box-sizing: border-box;
+  margin-top: 10px !important;
+  background-color: var(--fgg-bg-surface) !important;
+  border: 1px solid var(--fgg-border) !important;
+  border-radius: 6px !important;
+  padding: 12px 16px !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  color: var(--fgg-text-primary) !important;
+  box-sizing: border-box !important;
 }
 
 .fgg-editor-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 8px !important;
 }
 
 .fgg-editor-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: #f8fafc;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  color: #f8fafc !important;
 }
 
 .fgg-editor-brand-tag {
-  background-color: #1e293b;
-  border: 1px solid var(--fgg-border);
-  color: #10b981;
-  font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-weight: 600;
+  background-color: #1e293b !important;
+  border: 1px solid var(--fgg-border) !important;
+  color: #10b981 !important;
+  font-size: 10px !important;
+  padding: 2px 6px !important;
+  border-radius: 3px !important;
+  font-weight: 600 !important;
 }
 
 .fgg-char-counter {
-  font-size: 11px;
-  color: var(--fgg-text-secondary);
-  font-family: monospace;
+  font-size: 11px !important;
+  color: var(--fgg-text-secondary) !important;
+  font-family: monospace !important;
 }
 
-.fgg-char-counter.optimal { color: #34d399; }
-.fgg-char-counter.warning { color: #fbbf24; }
-.fgg-char-counter.exceeded { color: #f87171; font-weight: 700; }
+.fgg-char-counter.optimal { color: #34d399 !important; }
+.fgg-char-counter.warning { color: #fbbf24 !important; }
+.fgg-char-counter.exceeded { color: #f87171 !important; font-weight: 700 !important; }
 
 .fgg-alert-banner {
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  line-height: 1.4;
-  margin-top: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+  margin-top: 8px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
 }
 
 .fgg-alert-banner.danger {
-  background-color: var(--fgg-danger-bg);
-  border: 1px solid var(--fgg-danger-border);
-  color: #fca5a5;
+  background-color: var(--fgg-danger-bg) !important;
+  border: 1px solid var(--fgg-danger-border) !important;
+  color: #fca5a5 !important;
 }
 
 .fgg-alert-banner.high-risk {
-  background-color: rgba(249, 115, 22, 0.12);
-  border: 1px solid #f97316;
-  color: #fdba74;
+  background-color: rgba(249, 115, 22, 0.15) !important;
+  border: 1px solid #f97316 !important;
+  color: #fdba74 !important;
 }
 
 .fgg-alert-banner.caution {
-  background-color: var(--fgg-warning-bg);
-  border: 1px solid var(--fgg-warning-border);
-  color: #fde68a;
+  background-color: var(--fgg-warning-bg) !important;
+  border: 1px solid var(--fgg-warning-border) !important;
+  color: #fde68a !important;
 }
 
 .fgg-alert-banner.safe {
-  background-color: var(--fgg-safe-bg);
-  border: 1px solid var(--fgg-safe-border);
-  color: #a7f3d0;
+  background-color: var(--fgg-safe-bg) !important;
+  border: 1px solid var(--fgg-safe-border) !important;
+  color: #a7f3d0 !important;
 }
 
 .fgg-alert-title {
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
 }
 
 .fgg-detected-words-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-  margin-top: 4px;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin-top: 4px !important;
 }
 
 .fgg-detected-label {
-  font-size: 11px;
-  color: #cbd5e1;
-  font-weight: 600;
+  font-size: 11px !important;
+  color: #cbd5e1 !important;
+  font-weight: 600 !important;
 }
 
 .fgg-suggestion-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #0b1120;
-  border: 1px solid var(--fgg-border);
-  padding: 6px 10px;
-  border-radius: 4px;
-  margin-top: 6px;
-  font-size: 11px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background-color: #0b1120 !important;
+  border: 1px solid var(--fgg-border) !important;
+  padding: 6px 10px !important;
+  border-radius: 4px !important;
+  margin-top: 6px !important;
+  font-size: 11px !important;
 }
 
 .fgg-suggestion-text {
-  color: #e2e8f0;
-  font-family: monospace;
+  color: #e2e8f0 !important;
+  font-family: monospace !important;
 }
 
 .fgg-apply-btn {
-  background-color: #10b981;
-  color: #0f172a;
-  border: none;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
+  background-color: #10b981 !important;
+  color: #0f172a !important;
+  border: none !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 4px 8px !important;
+  border-radius: 3px !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s ease !important;
 }
 
 .fgg-apply-btn:hover {
-  background-color: #059669;
+  background-color: #059669 !important;
 }
