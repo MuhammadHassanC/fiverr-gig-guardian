@@ -1,6 +1,5 @@
-/* Fiverr Gig Guardian — Content Styles (Version 2.0)
-   Institutional High-Precision Design (Linear / Raycast Style)
-   Fixed Floating Tooltips • Anti-Clipping Thumbnail Overlays */
+/* Fiverr Gig Guardian — Content Styles (Version 2.1)
+   Minimal Inline Title Tags • Zero Buzzwords • No Image Overlays */
 
 :root {
   --fgg-bg-surface: #0f172a;
@@ -9,132 +8,108 @@
   --fgg-border-strong: #475569;
   --fgg-text-primary: #f8fafc;
   --fgg-text-secondary: #94a3b8;
-  --fgg-text-muted: #64748b;
   
   --fgg-danger-border: #ef4444;
-  --fgg-danger-bg: rgba(239, 68, 68, 0.18);
-  --fgg-danger-text: #f87171;
+  --fgg-danger-bg: #450a0a;
+  --fgg-danger-text: #fca5a5;
+
+  --fgg-risk-border: #f97316;
+  --fgg-risk-bg: #431407;
+  --fgg-risk-text: #fdba74;
 
   --fgg-warning-border: #f59e0b;
-  --fgg-warning-bg: rgba(245, 158, 11, 0.18);
-  --fgg-warning-text: #fbbf24;
+  --fgg-warning-bg: #451a03;
+  --fgg-warning-text: #fde68a;
 
   --fgg-safe-border: #10b981;
-  --fgg-safe-bg: rgba(16, 185, 129, 0.18);
-  --fgg-safe-text: #34d399;
+  --fgg-safe-bg: #064e3b;
+  --fgg-safe-text: #a7f3d0;
 }
 
 /* ==============================================================================
-   BADGES (Inline & Thumbnail Overlay)
+   SIMPLE INLINE TAG AT END OF GIG TITLE
    ============================================================================== */
-.fgg-badge-container {
-  display: flex !important;
-  align-items: center !important;
-  margin: 4px 0 6px 0 !important;
-  position: relative !important;
-  z-index: 20 !important;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 11px !important;
-  line-height: 1 !important;
-  width: fit-content !important;
-}
-
-.fgg-badge {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 5px !important;
-  padding: 3px 8px !important;
-  border-radius: 4px !important;
+.fgg-inline-tag {
+  display: inline-block !important;
+  margin-left: 6px !important;
+  padding: 1px 6px !important;
+  font-size: 10px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.4px !important;
+  line-height: 1.2 !important;
+  border-radius: 3px !important;
   text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
+  vertical-align: middle !important;
   cursor: pointer !important;
   user-select: none !important;
-  transition: all 0.15s ease !important;
   border: 1px solid transparent !important;
-  backdrop-filter: blur(4px) !important;
+  white-space: nowrap !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
 
-/* Thumbnail Overlay Badge (Floats top-left on gig image) */
-.fgg-overlay-badge {
-  position: absolute !important;
-  top: 8px !important;
-  left: 8px !important;
-  z-index: 9999 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
-}
-
-.fgg-badge-danger {
-  background-color: #450a0a !important;
-  border-color: var(--fgg-danger-border) !important;
-  color: #fca5a5 !important;
-}
-
-.fgg-badge-danger:hover {
-  background-color: #7f1d1d !important;
-}
-
-.fgg-badge-high-risk {
-  background-color: #431407 !important;
-  border-color: #ea580c !important;
-  color: #fdba74 !important;
-}
-
-.fgg-badge-high-risk:hover {
-  background-color: #7c2d12 !important;
-}
-
-.fgg-badge-caution {
-  background-color: #451a03 !important;
-  border-color: var(--fgg-warning-border) !important;
-  color: #fde68a !important;
-}
-
-.fgg-badge-caution:hover {
-  background-color: #78350f !important;
-}
-
-.fgg-badge-safe {
-  background-color: #064e3b !important;
+.fgg-tag-safe {
+  background-color: var(--fgg-safe-bg) !important;
   border-color: var(--fgg-safe-border) !important;
-  color: #a7f3d0 !important;
+  color: var(--fgg-safe-text) !important;
 }
 
-.fgg-badge-safe:hover {
+.fgg-tag-safe:hover {
   background-color: #065f46 !important;
 }
 
-.fgg-badge-indicator {
-  width: 6px !important;
-  height: 6px !important;
-  border-radius: 50% !important;
-  background-color: currentColor !important;
+.fgg-tag-caution {
+  background-color: var(--fgg-warning-bg) !important;
+  border-color: var(--fgg-warning-border) !important;
+  color: var(--fgg-warning-text) !important;
+}
+
+.fgg-tag-caution:hover {
+  background-color: #78350f !important;
+}
+
+.fgg-tag-risk {
+  background-color: var(--fgg-risk-bg) !important;
+  border-color: var(--fgg-risk-border) !important;
+  color: var(--fgg-risk-text) !important;
+}
+
+.fgg-tag-risk:hover {
+  background-color: #7c2d12 !important;
+}
+
+.fgg-tag-danger {
+  background-color: var(--fgg-danger-bg) !important;
+  border-color: var(--fgg-danger-border) !important;
+  color: var(--fgg-danger-text) !important;
+}
+
+.fgg-tag-danger:hover {
+  background-color: #7f1d1d !important;
 }
 
 /* ==============================================================================
-   FLOATING FIXED TOOLTIP (Zero Clipping / Highest Z-Index)
+   MINIMAL FLOATING TOOLTIP
    ============================================================================== */
 .fgg-floating-tooltip {
   position: fixed !important;
-  width: 330px !important;
+  width: 300px !important;
   max-width: 90vw !important;
   background-color: var(--fgg-bg-surface) !important;
   border: 1px solid var(--fgg-border-strong) !important;
-  border-radius: 6px !important;
-  padding: 12px !important;
-  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.7), 0 10px 15px -5px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 5px !important;
+  padding: 10px 12px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6) !important;
   z-index: 2147483647 !important;
-  text-transform: none !important;
   text-align: left !important;
   color: var(--fgg-text-primary) !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   line-height: 1.4 !important;
-  animation: fggFadeIn 0.12s ease-out !important;
   pointer-events: auto !important;
+  animation: fggFadeIn 0.12s ease-out !important;
 }
 
 @keyframes fggFadeIn {
-  from { opacity: 0; transform: translateY(-4px); }
+  from { opacity: 0; transform: translateY(-3px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -142,7 +117,7 @@
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  padding-bottom: 8px !important;
+  padding-bottom: 6px !important;
   border-bottom: 1px solid var(--fgg-border) !important;
   margin-bottom: 8px !important;
 }
@@ -150,17 +125,17 @@
 .fgg-tooltip-title {
   font-size: 11px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.5px !important;
   text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
 }
 
 .fgg-tooltip-title.danger { color: var(--fgg-danger-text) !important; }
-.fgg-tooltip-title.high-risk { color: #fb923c !important; }
+.fgg-tooltip-title.high-risk { color: var(--fgg-risk-text) !important; }
 .fgg-tooltip-title.caution { color: var(--fgg-warning-text) !important; }
 .fgg-tooltip-title.safe { color: var(--fgg-safe-text) !important; }
 
 .fgg-tooltip-body {
-  font-size: 12px !important;
+  font-size: 11px !important;
   color: var(--fgg-text-secondary) !important;
 }
 
@@ -168,15 +143,15 @@
   display: flex !important;
   flex-wrap: wrap !important;
   gap: 4px !important;
-  margin: 6px 0 10px 0 !important;
+  margin: 4px 0 8px 0 !important;
 }
 
 .fgg-flag-chip {
   background-color: rgba(239, 68, 68, 0.2) !important;
   border: 1px solid var(--fgg-danger-border) !important;
   color: #fca5a5 !important;
-  font-size: 11px !important;
-  padding: 2px 6px !important;
+  font-size: 10px !important;
+  padding: 1px 5px !important;
   border-radius: 3px !important;
   font-family: monospace !important;
   font-weight: 600 !important;
@@ -188,12 +163,12 @@
   background-color: var(--fgg-bg-surface-elevated) !important;
   padding: 6px 8px !important;
   border-radius: 4px !important;
-  border-left: 3px solid var(--fgg-danger-border) !important;
+  border-left: 2px solid var(--fgg-danger-border) !important;
   margin-bottom: 8px !important;
 }
 
 .fgg-legacy-notice {
-  font-size: 11px !important;
+  font-size: 10px !important;
   color: #94a3b8 !important;
   line-height: 1.35 !important;
   margin-bottom: 8px !important;
@@ -204,15 +179,15 @@
   border: 1px solid var(--fgg-safe-border) !important;
   padding: 6px 8px !important;
   border-radius: 4px !important;
-  font-size: 11px !important;
+  font-size: 10px !important;
   color: #34d399 !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 4px !important;
+  gap: 3px !important;
 }
 
 .fgg-alt-title {
-  font-size: 10px !important;
+  font-size: 9px !important;
   text-transform: uppercase !important;
   font-weight: 700 !important;
   color: #10b981 !important;
@@ -222,12 +197,12 @@
   background-color: #1e293b !important;
   border: 1px solid var(--fgg-border) !important;
   color: #f8fafc !important;
-  padding: 3px 6px !important;
+  padding: 2px 6px !important;
   font-size: 10px !important;
   border-radius: 3px !important;
   cursor: pointer !important;
   align-self: flex-start !important;
-  margin-top: 4px !important;
+  margin-top: 3px !important;
   transition: background-color 0.15s ease !important;
 }
 
@@ -243,7 +218,7 @@
   background-color: var(--fgg-bg-surface) !important;
   border: 1px solid var(--fgg-border) !important;
   border-radius: 6px !important;
-  padding: 12px 16px !important;
+  padding: 12px 14px !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   color: var(--fgg-text-primary) !important;
   box-sizing: border-box !important;
@@ -259,10 +234,9 @@
 .fgg-editor-brand {
   display: flex !important;
   align-items: center !important;
-  gap: 8px !important;
-  font-size: 12px !important;
+  gap: 6px !important;
+  font-size: 11px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.5px !important;
   text-transform: uppercase !important;
   color: #f8fafc !important;
 }
@@ -271,8 +245,8 @@
   background-color: #1e293b !important;
   border: 1px solid var(--fgg-border) !important;
   color: #10b981 !important;
-  font-size: 10px !important;
-  padding: 2px 6px !important;
+  font-size: 9px !important;
+  padding: 1px 5px !important;
   border-radius: 3px !important;
   font-weight: 600 !important;
 }
@@ -288,14 +262,14 @@
 .fgg-char-counter.exceeded { color: #f87171 !important; font-weight: 700 !important; }
 
 .fgg-alert-banner {
-  padding: 8px 12px !important;
+  padding: 8px 10px !important;
   border-radius: 4px !important;
-  font-size: 12px !important;
+  font-size: 11px !important;
   line-height: 1.4 !important;
-  margin-top: 8px !important;
+  margin-top: 6px !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 6px !important;
+  gap: 4px !important;
 }
 
 .fgg-alert-banner.danger {
@@ -305,9 +279,9 @@
 }
 
 .fgg-alert-banner.high-risk {
-  background-color: rgba(249, 115, 22, 0.15) !important;
-  border: 1px solid #f97316 !important;
-  color: #fdba74 !important;
+  background-color: var(--fgg-risk-bg) !important;
+  border: 1px solid var(--fgg-risk-border) !important;
+  color: var(--fgg-risk-text) !important;
 }
 
 .fgg-alert-banner.caution {
@@ -324,21 +298,18 @@
 
 .fgg-alert-title {
   font-weight: 700 !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 6px !important;
 }
 
 .fgg-detected-words-row {
   display: flex !important;
   flex-wrap: wrap !important;
   align-items: center !important;
-  gap: 6px !important;
+  gap: 4px !important;
   margin-top: 4px !important;
 }
 
 .fgg-detected-label {
-  font-size: 11px !important;
+  font-size: 10px !important;
   color: #cbd5e1 !important;
   font-weight: 600 !important;
 }
@@ -349,7 +320,7 @@
   justify-content: space-between !important;
   background-color: #0b1120 !important;
   border: 1px solid var(--fgg-border) !important;
-  padding: 6px 10px !important;
+  padding: 5px 8px !important;
   border-radius: 4px !important;
   margin-top: 6px !important;
   font-size: 11px !important;
@@ -364,9 +335,9 @@
   background-color: #10b981 !important;
   color: #0f172a !important;
   border: none !important;
-  font-size: 11px !important;
+  font-size: 10px !important;
   font-weight: 700 !important;
-  padding: 4px 8px !important;
+  padding: 3px 8px !important;
   border-radius: 3px !important;
   cursor: pointer !important;
   transition: background-color 0.15s ease !important;
