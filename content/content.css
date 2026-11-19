@@ -1,0 +1,367 @@
+/* Fiverr Gig Guardian — Content Styles
+   Institutional Developer Design (Linear / Raycast Style)
+   Zero AI Glow / Zero Sparkles / Crisp 1px Borders */
+
+:root {
+  --fgg-bg-surface: #0f172a;
+  --fgg-bg-surface-elevated: #1e293b;
+  --fgg-border: #334155;
+  --fgg-border-strong: #475569;
+  --fgg-text-primary: #f8fafc;
+  --fgg-text-secondary: #94a3b8;
+  --fgg-text-muted: #64748b;
+  
+  --fgg-danger-border: #ef4444;
+  --fgg-danger-bg: rgba(239, 68, 68, 0.12);
+  --fgg-danger-text: #f87171;
+
+  --fgg-warning-border: #f59e0b;
+  --fgg-warning-bg: rgba(245, 158, 11, 0.12);
+  --fgg-warning-text: #fbbf24;
+
+  --fgg-safe-border: #10b981;
+  --fgg-safe-bg: rgba(16, 185, 129, 0.12);
+  --fgg-safe-text: #34d399;
+}
+
+/* Badge attached to Gig Cards */
+.fgg-badge-container {
+  display: inline-flex;
+  align-items: center;
+  margin: 6px 0;
+  position: relative;
+  z-index: 10;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.fgg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.fgg-badge-danger {
+  background-color: var(--fgg-danger-bg);
+  border-color: var(--fgg-danger-border);
+  color: var(--fgg-danger-text);
+}
+
+.fgg-badge-danger:hover {
+  background-color: rgba(239, 68, 68, 0.22);
+}
+
+.fgg-badge-high-risk {
+  background-color: rgba(249, 115, 22, 0.14);
+  border-color: #f97316;
+  color: #fb923c;
+}
+
+.fgg-badge-high-risk:hover {
+  background-color: rgba(249, 115, 22, 0.24);
+}
+
+.fgg-badge-caution {
+  background-color: var(--fgg-warning-bg);
+  border-color: var(--fgg-warning-border);
+  color: var(--fgg-warning-text);
+}
+
+.fgg-badge-caution:hover {
+  background-color: rgba(245, 158, 11, 0.22);
+}
+
+.fgg-badge-safe {
+  background-color: var(--fgg-safe-bg);
+  border-color: var(--fgg-safe-border);
+  color: var(--fgg-safe-text);
+}
+
+.fgg-badge-safe:hover {
+  background-color: rgba(16, 185, 129, 0.22);
+}
+
+.fgg-badge-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+/* Floating Tooltip Card */
+.fgg-tooltip-card {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 320px;
+  background-color: var(--fgg-bg-surface);
+  border: 1px solid var(--fgg-border);
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  z-index: 999999;
+  display: none;
+  text-transform: none;
+  text-align: left;
+  color: var(--fgg-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.4;
+  animation: fggFadeIn 0.12s ease-out;
+}
+
+.fgg-badge-container:hover .fgg-tooltip-card {
+  display: block;
+}
+
+@keyframes fggFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fgg-tooltip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--fgg-border);
+  margin-bottom: 8px;
+}
+
+.fgg-tooltip-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.fgg-tooltip-title.danger { color: var(--fgg-danger-text); }
+.fgg-tooltip-title.high-risk { color: #fb923c; }
+.fgg-tooltip-title.caution { color: var(--fgg-warning-text); }
+.fgg-tooltip-title.safe { color: var(--fgg-safe-text); }
+
+.fgg-tooltip-body {
+  font-size: 12px;
+  color: var(--fgg-text-secondary);
+}
+
+.fgg-flags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 6px 0 10px 0;
+}
+
+.fgg-flag-chip {
+  background-color: rgba(239, 68, 68, 0.18);
+  border: 1px solid var(--fgg-danger-border);
+  color: var(--fgg-danger-text);
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.fgg-policy-rule {
+  font-size: 11px;
+  color: #cbd5e1;
+  background-color: var(--fgg-bg-surface-elevated);
+  padding: 6px 8px;
+  border-radius: 4px;
+  border-left: 2px solid var(--fgg-danger-border);
+  margin-bottom: 8px;
+}
+
+.fgg-legacy-notice {
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.fgg-alt-box {
+  background-color: rgba(16, 185, 129, 0.08);
+  border: 1px solid var(--fgg-safe-border);
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #34d399;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fgg-alt-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #10b981;
+}
+
+.fgg-copy-btn {
+  background-color: #1e293b;
+  border: 1px solid var(--fgg-border);
+  color: #f8fafc;
+  padding: 3px 6px;
+  font-size: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: 4px;
+  transition: background-color 0.15s ease;
+}
+
+.fgg-copy-btn:hover {
+  background-color: #334155;
+}
+
+/* ==============================================================================
+   GIG CREATION & EDIT PANEL STYLES
+   ============================================================================== */
+.fgg-editor-panel {
+  margin-top: 10px;
+  background-color: var(--fgg-bg-surface);
+  border: 1px solid var(--fgg-border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--fgg-text-primary);
+  box-sizing: border-box;
+}
+
+.fgg-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.fgg-editor-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #f8fafc;
+}
+
+.fgg-editor-brand-tag {
+  background-color: #1e293b;
+  border: 1px solid var(--fgg-border);
+  color: #10b981;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.fgg-char-counter {
+  font-size: 11px;
+  color: var(--fgg-text-secondary);
+  font-family: monospace;
+}
+
+.fgg-char-counter.optimal { color: #34d399; }
+.fgg-char-counter.warning { color: #fbbf24; }
+.fgg-char-counter.exceeded { color: #f87171; font-weight: 700; }
+
+.fgg-alert-banner {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.4;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fgg-alert-banner.danger {
+  background-color: var(--fgg-danger-bg);
+  border: 1px solid var(--fgg-danger-border);
+  color: #fca5a5;
+}
+
+.fgg-alert-banner.high-risk {
+  background-color: rgba(249, 115, 22, 0.12);
+  border: 1px solid #f97316;
+  color: #fdba74;
+}
+
+.fgg-alert-banner.caution {
+  background-color: var(--fgg-warning-bg);
+  border: 1px solid var(--fgg-warning-border);
+  color: #fde68a;
+}
+
+.fgg-alert-banner.safe {
+  background-color: var(--fgg-safe-bg);
+  border: 1px solid var(--fgg-safe-border);
+  color: #a7f3d0;
+}
+
+.fgg-alert-title {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fgg-detected-words-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.fgg-detected-label {
+  font-size: 11px;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+.fgg-suggestion-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #0b1120;
+  border: 1px solid var(--fgg-border);
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-top: 6px;
+  font-size: 11px;
+}
+
+.fgg-suggestion-text {
+  color: #e2e8f0;
+  font-family: monospace;
+}
+
+.fgg-apply-btn {
+  background-color: #10b981;
+  color: #0f172a;
+  border: none;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.fgg-apply-btn:hover {
+  background-color: #059669;
+}
