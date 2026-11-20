@@ -1,38 +1,88 @@
 /**
- * Fiverr Gig Guardian — Content Script (Version 2.1)
- * Clean, minimal inline title tag right at the end of the gig title text.
- * Zero image overlays. Zero buzzwords. Simple & direct.
+ * Fiverr Gig Guardian — Content Script (Version 2.2)
+ * Full Canonical Title Inspection • Consistent Deterministic Tags • Zero Visual Clutter.
+ * Simple inline tag at the end of the title text. No image overlays. No buzzwords.
  */
 
 (function () {
   "use strict";
 
-  if (window.__fggInjected_v21) return;
-  window.__fggInjected_v21 = true;
+  if (window.__fggInjected_v22) return;
+  window.__fggInjected_v22 = true;
 
-  console.log("[Fiverr Gig Guardian v2.1] Initialized.");
+  console.log("[Fiverr Gig Guardian v2.2] Initialized.");
 
   // Initialize Risk Engine
   const engine = new RiskAnalysisEngine(FIVERR_POLICY_DATABASE);
 
   let activeFloatingTooltip = null;
 
-  // Cleanup any old badges from previous versions if present
+  // Cleanup old badges or overlay elements from prior versions
   function cleanupOldBadges() {
-    document.querySelectorAll(".fgg-overlay-badge, .fgg-badge-container").forEach(el => el.remove());
+    document.querySelectorAll(".fgg-overlay-badge, .fgg-badge-container, .fgg-title-badge-wrapper, .fgg-card-badge").forEach(el => el.remove());
   }
 
   // ============================================================================
-  // 1. UNIVERSAL TITLE FINDER & INLINE TAGGING
+  // 1. CANONICAL TITLE EXTRACTION & INLINE TAGGING
   // ============================================================================
+
+  function normalizeTitleText(text) {
+    if (!text) return "";
+    return text
+      .replace(/\b(safe|caution|risk|danger|notice|compliant|policy\s*hazard|high\s*risk)\b/gi, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  /**
+   * Extracts the full, un-truncated canonical gig title.
+   * Fiverr search results often truncate text inside <p> with line-clamp,
+   * but the full title is preserved in a[title], card img[alt], or heading attributes.
+   */
+  function extractCanonicalTitle(leafElem) {
+    // 1. Check enclosing or adjacent anchor's title attribute
+    const anchor = leafElem.closest("a[title]") || leafElem.querySelector("a[title]");
+    if (anchor) {
+      const aTitle = anchor.getAttribute("title") || "";
+      if (/^i\s+will\b/i.test(aTitle.trim())) {
+        return normalizeTitleText(aTitle);
+      }
+    }
+
+    // 2. Check if the element itself or parent has a title attribute starting with "I will"
+    const titledElem = leafElem.closest("[title^='i will' i], [title^='I will' i]") ||
+                       leafElem.querySelector("[title^='i will' i], [title^='I will' i]");
+    if (titledElem) {
+      const t = titledElem.getAttribute("title") || "";
+      if (/^i\s+will\b/i.test(t.trim())) {
+        return normalizeTitleText(t);
+      }
+    }
+
+    // 3. Check card thumbnail image alt attribute
+    const card = leafElem.closest("[data-testid='gig-card'], .gig-card-layout, article, div[class*='gig-card']");
+    if (card) {
+      const img = card.querySelector("img[alt^='i will' i], img[alt^='I will' i]");
+      if (img) {
+        const alt = img.getAttribute("alt") || "";
+        if (/^i\s+will\b/i.test(alt.trim())) {
+          return normalizeTitleText(alt);
+        }
+      }
+    }
+
+    // 4. Fallback to clean visible text
+    return normalizeTitleText(leafElem.textContent || "");
+  }
+
   function scanGigTitles() {
     cleanupOldBadges();
 
-    // Find all candidate elements containing "I will"
-    const elements = document.querySelectorAll("p, h3, a, span, div");
+    // Query candidate elements that hold gig titles
+    const candidates = document.querySelectorAll("p, h3, [role='heading'], a");
 
-    elements.forEach(el => {
-      // Avoid scanning our own tags, editor panels, or tooltips
+    candidates.forEach(el => {
+      // Skip our own injected elements, editor panels, or tooltips
       if (
         el.classList.contains("fgg-inline-tag") ||
         el.closest(".fgg-editor-panel") ||
@@ -41,34 +91,47 @@
         return;
       }
 
-      const rawText = (el.textContent || "").trim();
-      if (/^i\s+will\b/i.test(rawText) && rawText.length >= 15 && rawText.length <= 160) {
-        // Find the deepest leaf element that holds this text
-        const hasChildWithSameText = Array.from(el.children).some(child => {
+      const text = (el.textContent || "").trim();
+      const hasPrefix = /^i\s+will\b/i.test(text);
+      const isAnchorWithTitle = el.tagName === "A" && /^i\s+will\b/i.test((el.getAttribute("title") || "").trim());
+
+      if ((hasPrefix && text.length >= 15 && text.length <= 180) || isAnchorWithTitle) {
+        // Find deepest child that actually displays the title text
+        const hasChildTitle = Array.from(el.children).some(child => {
+          if (child.classList.contains("fgg-inline-tag")) return false;
           return /^i\s+will\b/i.test((child.textContent || "").trim());
         });
 
-        if (!hasChildWithSameText) {
-          // Check if already tagged
-          if (el.dataset.fggTagged === "true" || el.querySelector(".fgg-inline-tag")) {
-            return;
-          }
-
-          // Extract pure title text without any trailing badge text
-          let cleanTitle = rawText.replace(/\b(safe|caution|risk|danger)\b$/i, "").trim();
-          if (cleanTitle.length < 15) return;
-
-          const analysis = engine.analyze(cleanTitle);
-
-          // Attach inline tag right at the end of the title text
-          attachTagToEndOfTitle(el, analysis);
+        if (hasChildTitle) {
+          // Let the child element handle the tag placement
+          return;
         }
+
+        // Extract canonical full title
+        const fullTitle = extractCanonicalTitle(el);
+        if (!fullTitle || fullTitle.length < 15) return;
+
+        // Check if already tagged with this exact canonical title
+        if (el.dataset.fggAnalyzedTitle === fullTitle && el.querySelector(".fgg-inline-tag")) {
+          return;
+        }
+
+        // Run analysis on the 100% full canonical title
+        const analysis = engine.analyze(fullTitle);
+
+        // Attach tag right at the end of the title text
+        attachTagToEndOfTitle(el, fullTitle, analysis);
       }
     });
   }
 
-  function attachTagToEndOfTitle(titleElem, analysis) {
-    titleElem.dataset.fggTagged = "true";
+  function attachTagToEndOfTitle(titleElem, fullTitle, analysis) {
+    titleElem.dataset.fggAnalyzedTitle = fullTitle;
+    titleElem.dataset.fggProcessed = "true";
+
+    // Remove any existing tag inside this element to prevent duplicates
+    const existing = titleElem.querySelectorAll(".fgg-inline-tag");
+    existing.forEach(t => t.remove());
 
     // Simple labels without buzzwords
     let tagClass = "fgg-tag-safe";
@@ -88,6 +151,7 @@
     const tag = document.createElement("span");
     tag.className = `fgg-inline-tag ${tagClass}`;
     tag.textContent = tagLabel;
+    tag.dataset.verdict = analysis.verdict;
 
     // Prevent clicking the tag from opening the gig link
     tag.addEventListener("click", (e) => {
@@ -98,7 +162,7 @@
     // Tooltip listeners
     attachTooltipEvents(tag, analysis);
 
-    // Place it right at the end of the title
+    // Place tag strictly right at the end of the title text
     titleElem.appendChild(document.createTextNode(" "));
     titleElem.appendChild(tag);
   }
