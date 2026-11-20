@@ -172,12 +172,12 @@ class RiskAnalysisEngine {
       const cat = this.db.categories.KEYWORD_STUFFING_REDUNDANCY;
       if (cat) {
         result.flags.push({
-          matchedWord: `Repetitive terms: ${matched.join(", ")}`,
+          matchedWord: `Duplicate Synonyms: ${matched.join(" + ")}`,
           categoryId: cat.id,
           categoryName: cat.name,
           severity: cat.severity,
           fiverrRule: cat.fiverrRule,
-          description: `Fiverr explicitly rejects new gigs that stack repetitive synonyms (${matched.join(", ")}). Choose ONE primary term.`,
+          description: `Yeh words ('${matched.join("', '")}') aapas mein same matlab rakhte hain. Inhein aik sath title mein repeat karne par Fiverr editor 'Repetitive keywords' ka error deta hai. In mein se sirf koi aik word use karein.`,
           safeAlternative: cat.safeAlternative
         });
       }

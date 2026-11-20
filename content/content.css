@@ -139,6 +139,20 @@
   color: var(--fgg-text-secondary) !important;
 }
 
+.fgg-section-label {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  margin-bottom: 4px !important;
+}
+
+.fgg-section-label.danger-text {
+  color: #fca5a5 !important;
+}
+
+.fgg-section-label.warning-text {
+  color: #fde68a !important;
+}
+
 .fgg-flags-list {
   display: flex !important;
   flex-wrap: wrap !important;
@@ -157,6 +171,12 @@
   font-weight: 600 !important;
 }
 
+.fgg-flag-chip.warning {
+  background-color: rgba(245, 158, 11, 0.2) !important;
+  border: 1px solid var(--fgg-warning-border) !important;
+  color: #fde68a !important;
+}
+
 .fgg-policy-rule {
   font-size: 11px !important;
   color: #cbd5e1 !important;
@@ -165,6 +185,10 @@
   border-radius: 4px !important;
   border-left: 2px solid var(--fgg-danger-border) !important;
   margin-bottom: 8px !important;
+}
+
+.fgg-policy-rule.warning {
+  border-left: 2px solid var(--fgg-warning-border) !important;
 }
 
 .fgg-legacy-notice {

@@ -276,26 +276,7 @@ const FIVERR_POLICY_DATABASE = {
       ]
     },
 
-    // 13. CODE MODIFICATION & REVERSE ENGINEERING RISK (HIGH RISK)
-    CODE_MODIFICATION_IP_RISK: {
-      id: "CODE_MODIFICATION_IP_RISK",
-      name: "EA / Code Modification & IP Scrutiny",
-      severity: "HIGH",
-      fiverrRule: "Intellectual Property Rights & Code Modification Policy",
-      description: "Offering to 'modify' existing EAs, indicators, or compiled trading bots triggers Fiverr editorial review for reverse engineering and decompilation risks.",
-      safeAlternative: "Offer custom strategy coding or indicator development from scratch.",
-      keywords: [
-        "modify ea", "modify indicator", "modify mt4", "modify mt5", "modify bot",
-        "modify expert advisor", "edit ea", "edit indicator", "edit expert advisor",
-        "ea modification", "bot modification", "indicator modification"
-      ],
-      patterns: [
-        /\b(modify|modifying|edit|editing)\b.*?\b(mt[45]|ea|eas|expert\s*advisor|indicator|trading\s*bot|bot|robot)\b/i,
-        /\b(mt[45]|ea|eas|expert\s*advisor|indicator|bot)\b.*?\b(modification|modifying)\b/i
-      ]
-    },
-
-    // 14. REPETITIVE KEYWORD STUFFING (MEDIUM RISK - Gig Disapproval)
+    // 13. REPETITIVE KEYWORD STUFFING (MEDIUM RISK - Gig Disapproval)
     KEYWORD_STUFFING_REDUNDANCY: {
       id: "KEYWORD_STUFFING_REDUNDANCY",
       name: "Keyword Stuffing & Redundant Synonyms",

@@ -203,19 +203,42 @@
     `;
 
     if (analysis.flags.length > 0) {
-      html += `
-        <div style="font-size:11px; font-weight:600; color:#cbd5e1; margin-bottom:4px;">Problem Words:</div>
-        <div class="fgg-flags-list">
-          ${analysis.flags.map(f => `<span class="fgg-flag-chip">${escapeHtml(f.matchedWord)}</span>`).join("")}
-        </div>
-        <div class="fgg-policy-rule">
-          <strong>Fiverr Rule:</strong> ${escapeHtml(analysis.flags[0].fiverrRule)}<br>
-          <span style="font-size:10px; color:#cbd5e1; display:block; margin-top:2px;">${escapeHtml(analysis.flags[0].description)}</span>
-        </div>
-        <div class="fgg-legacy-notice">
-          Agar aap yeh title copy karke nayi gig banayenge to Fiverr isko reject kar dega ya account par warning aa sakti hai.
-        </div>
-      `;
+      const tosFlags = analysis.flags.filter(f => f.categoryId !== "KEYWORD_STUFFING_REDUNDANCY");
+      const redundancyFlags = analysis.flags.filter(f => f.categoryId === "KEYWORD_STUFFING_REDUNDANCY");
+
+      // 1. Critical / High Risk Policy Breaches (e.g. FTMO, Decompile, Win Rate, WhatsApp)
+      if (tosFlags.length > 0) {
+        html += `
+          <div class="fgg-section-label danger-text">Forbidden Trigger Words:</div>
+          <div class="fgg-flags-list">
+            ${tosFlags.map(f => `<span class="fgg-flag-chip">${escapeHtml(f.matchedWord)}</span>`).join("")}
+          </div>
+          <div class="fgg-policy-rule">
+            <strong>Fiverr Policy:</strong> ${escapeHtml(tosFlags[0].fiverrRule)}<br>
+            <span style="font-size:10px; color:#cbd5e1; display:block; margin-top:2px;">${escapeHtml(tosFlags[0].description)}</span>
+          </div>
+          <div class="fgg-legacy-notice">
+            Yeh words Fiverr Community Standards ke khilaf hain. In se gig delete ya warning strike aa sakti hai.
+          </div>
+        `;
+      }
+
+      // 2. Keyword Stuffing / Duplicate Synonyms (e.g. EA + Expert Advisor)
+      if (redundancyFlags.length > 0) {
+        html += `
+          <div class="fgg-section-label warning-text">Duplicate Synonyms (Repetitive Keywords):</div>
+          <div class="fgg-flags-list">
+            ${redundancyFlags.map(f => `<span class="fgg-flag-chip warning">${escapeHtml(f.matchedWord)}</span>`).join("")}
+          </div>
+          <div class="fgg-policy-rule warning">
+            <strong>Fiverr Editor Rule:</strong> ${escapeHtml(redundancyFlags[0].fiverrRule)}<br>
+            <span style="font-size:10px; color:#fde68a; display:block; margin-top:2px;">${escapeHtml(redundancyFlags[0].description)}</span>
+          </div>
+          <div class="fgg-legacy-notice">
+            Word 'EA' apne aap mein bilkul SAFE hai. Masla sirf aik hi title mein duplicate synonyms repeat karne ka hai.
+          </div>
+        `;
+      }
 
       if (analysis.safeAlternative) {
         html += `

@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (res.flags.length > 0) {
       flagsSection.style.display = "block";
       flagChips.innerHTML = res.flags
-        .map(f => `<span class="fgg-flag-chip">${escapeHtml(f.matchedWord)}</span>`)
+        .map(f => `<span class="fgg-flag-chip ${f.categoryId === 'KEYWORD_STUFFING_REDUNDANCY' ? 'warning' : ''}">${escapeHtml(f.matchedWord)}</span>`)
         .join("");
 
       const primaryFlag = res.flags[0];
