@@ -2,12 +2,12 @@
  * Fiverr Policy & Community Guidelines Database
  * High-precision regulatory rule set mapping prohibited keywords, regex patterns,
  * severity weights, and official Fiverr Community Standards references.
- * Version: 2026.11.4
- * 100% Deterministic — Zero False Positives on standard developer/freelance terms.
+ * Version: 2026.11.5
+ * 100% Deterministic — Evaluates code modification, keyword stuffing, and ToS risks.
  */
 
 const FIVERR_POLICY_DATABASE = {
-  version: "2026.11.4",
+  version: "2026.11.5",
   lastUpdated: "2026-11-20",
   categories: {
     // 1. PROP FIRM CHEATING (CRITICAL - Instant Account Suspension)
@@ -274,6 +274,37 @@ const FIVERR_POLICY_DATABASE = {
         /\b(fake|counterfeit|novelty)\s+(id|passport|diploma|certificate|license|document)\b/i,
         /\b(edit|modify)\s+.*?\b(bank\s+statement|paystub|utility\s+bill|invoice|receipt|document)\b/i
       ]
+    },
+
+    // 13. CODE MODIFICATION & REVERSE ENGINEERING RISK (HIGH RISK)
+    CODE_MODIFICATION_IP_RISK: {
+      id: "CODE_MODIFICATION_IP_RISK",
+      name: "EA / Code Modification & IP Scrutiny",
+      severity: "HIGH",
+      fiverrRule: "Intellectual Property Rights & Code Modification Policy",
+      description: "Offering to 'modify' existing EAs, indicators, or compiled trading bots triggers Fiverr editorial review for reverse engineering and decompilation risks.",
+      safeAlternative: "Offer custom strategy coding or indicator development from scratch.",
+      keywords: [
+        "modify ea", "modify indicator", "modify mt4", "modify mt5", "modify bot",
+        "modify expert advisor", "edit ea", "edit indicator", "edit expert advisor",
+        "ea modification", "bot modification", "indicator modification"
+      ],
+      patterns: [
+        /\b(modify|modifying|edit|editing)\b.*?\b(mt[45]|ea|eas|expert\s*advisor|indicator|trading\s*bot|bot|robot)\b/i,
+        /\b(mt[45]|ea|eas|expert\s*advisor|indicator|bot)\b.*?\b(modification|modifying)\b/i
+      ]
+    },
+
+    // 14. REPETITIVE KEYWORD STUFFING (MEDIUM RISK - Gig Disapproval)
+    KEYWORD_STUFFING_REDUNDANCY: {
+      id: "KEYWORD_STUFFING_REDUNDANCY",
+      name: "Keyword Stuffing & Redundant Synonyms",
+      severity: "MEDIUM",
+      fiverrRule: "Gig Title Quality & Editorial Guidelines",
+      description: "Fiverr rejects new gigs that repeat synonyms (e.g. 'bot', 'expert advisor', 'ea', 'trading bot'). Legacy gigs created years ago keep them, but new gigs get denied.",
+      safeAlternative: "Choose ONE primary clear term: e.g. 'I will develop a custom MT5 Expert Advisor' instead of stacking 'bot ea expert advisor'.",
+      keywords: [],
+      patterns: []
     }
   },
 

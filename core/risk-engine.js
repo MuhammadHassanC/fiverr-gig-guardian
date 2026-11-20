@@ -1,6 +1,6 @@
 /**
- * Fiverr Gig Guardian — Core Risk Analysis Engine (Version 2.2)
- * 100% Deterministic Policy Evaluation — Zero Flapping, Zero False Positives.
+ * Fiverr Gig Guardian — Core Risk Analysis Engine (Version 2.3)
+ * 100% Deterministic Policy Evaluation — Detects ToS violations, code modification scrutiny, and keyword stuffing.
  */
 
 class RiskAnalysisEngine {
@@ -38,10 +38,13 @@ class RiskAnalysisEngine {
     // 3. Exact Policy & Keyword Matching
     this._checkPolicies(title, result);
 
-    // 4. Final Verdict Determination
+    // 4. Repetitive Keyword Stuffing & Synonym Redundancy
+    this._checkKeywordStuffing(title, result);
+
+    // 5. Final Verdict Determination
     this._finalizeVerdict(result);
 
-    // 5. Generate Safe Alternative if needed
+    // 6. Generate Safe Alternative if needed
     if (result.flags.length > 0) {
       result.safeAlternative = this._generateAlternative(title, result.flags);
     }
@@ -88,6 +91,9 @@ class RiskAnalysisEngine {
     const detectedWordSet = new Set();
 
     for (const [catKey, cat] of Object.entries(categories)) {
+      // Skip KEYWORD_STUFFING_REDUNDANCY here as it's evaluated by synonym cluster analyzer
+      if (cat.id === "KEYWORD_STUFFING_REDUNDANCY") continue;
+
       // 1. Regex pattern matches
       if (cat.patterns && cat.patterns.length > 0) {
         for (const pattern of cat.patterns) {
@@ -111,24 +117,69 @@ class RiskAnalysisEngine {
       }
 
       // 2. Keyword dictionary search (longer phrases first)
-      const sortedKeywords = [...cat.keywords].sort((a, b) => b.length - a.length);
-      for (const kw of sortedKeywords) {
-        const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        const kwRegex = new RegExp(`(^|\\b|\\s)${escaped}(\\b|\\s|$)`, "i");
-        if (kwRegex.test(lowerTitle)) {
-          if (!detectedWordSet.has(kw.toLowerCase())) {
-            detectedWordSet.add(kw.toLowerCase());
-            result.flags.push({
-              matchedWord: kw,
-              categoryId: cat.id,
-              categoryName: cat.name,
-              severity: cat.severity,
-              fiverrRule: cat.fiverrRule,
-              description: cat.description,
-              safeAlternative: cat.safeAlternative
-            });
+      if (cat.keywords && cat.keywords.length > 0) {
+        const sortedKeywords = [...cat.keywords].sort((a, b) => b.length - a.length);
+        for (const kw of sortedKeywords) {
+          const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          const kwRegex = new RegExp(`(^|\\b|\\s)${escaped}(\\b|\\s|$)`, "i");
+          if (kwRegex.test(lowerTitle)) {
+            if (!detectedWordSet.has(kw.toLowerCase())) {
+              detectedWordSet.add(kw.toLowerCase());
+              result.flags.push({
+                matchedWord: kw,
+                categoryId: cat.id,
+                categoryName: cat.name,
+                severity: cat.severity,
+                fiverrRule: cat.fiverrRule,
+                description: cat.description,
+                safeAlternative: cat.safeAlternative
+              });
+            }
           }
         }
+      }
+    }
+  }
+
+  _checkKeywordStuffing(title, result) {
+    const lower = title.toLowerCase();
+
+    // Trading Automation Synonym Clusters
+    const tradingSynonyms = [
+      { name: "expert advisor", regex: /\b(expert\s*advisor)\b/i },
+      { name: "ea", regex: /\bea\b/i },
+      { name: "eas", regex: /\beas\b/i },
+      { name: "bot", regex: /\bbot\b/i },
+      { name: "trading bot", regex: /\b(trading\s*bot)\b/i },
+      { name: "robot", regex: /\brobot\b/i },
+      { name: "trading robot", regex: /\b(trading\s*robot)\b/i }
+    ];
+
+    const matched = [];
+    tradingSynonyms.forEach(item => {
+      if (item.regex.test(lower)) {
+        if (item.name === "bot" && /\b(trading\s*bot)\b/i.test(lower)) return;
+        if (item.name === "robot" && /\b(trading\s*robot)\b/i.test(lower)) return;
+        if (item.name === "ea" && /\beas\b/i.test(lower)) {
+          const words = lower.split(/\s+/);
+          if (!words.includes("ea")) return;
+        }
+        matched.push(item.name);
+      }
+    });
+
+    if (matched.length >= 2) {
+      const cat = this.db.categories.KEYWORD_STUFFING_REDUNDANCY;
+      if (cat) {
+        result.flags.push({
+          matchedWord: `Repetitive terms: ${matched.join(", ")}`,
+          categoryId: cat.id,
+          categoryName: cat.name,
+          severity: cat.severity,
+          fiverrRule: cat.fiverrRule,
+          description: `Fiverr explicitly rejects new gigs that stack repetitive synonyms (${matched.join(", ")}). Choose ONE primary term.`,
+          safeAlternative: cat.safeAlternative
+        });
       }
     }
   }
@@ -142,25 +193,37 @@ class RiskAnalysisEngine {
     if (hasCritical) {
       result.verdict = "DANGER";
       result.score = 95;
-      result.summaryMessage = "Forbidden word detected. This gig title violates Fiverr Community Guidelines and risks account warning or removal.";
+      result.summaryMessage = "Forbidden word detected. Violates Fiverr Community Standards and risks account strike.";
     } else if (hasHigh || hasSyntaxHigh) {
       result.verdict = "HIGH_RISK";
       result.score = 75;
-      result.summaryMessage = "High-risk claim or ToS conflict detected. Review or modify before publishing.";
+      result.summaryMessage = "High-risk claim or code modification review flag detected. May be rejected upon review.";
     } else if (hasMedium || result.syntaxIssues.length > 0) {
       result.verdict = "CAUTION";
       result.score = 40;
-      result.summaryMessage = "Title needs minor syntax or clarity adjustment.";
+      result.summaryMessage = "Notice: Repetitive keywords or syntax adjustment advised to prevent gig editorial rejection.";
     } else {
       result.verdict = "SAFE";
       result.score = 0;
-      result.summaryMessage = "Title is compliant with Fiverr Community Standards.";
+      result.summaryMessage = "Compliant with Fiverr Community Standards.";
     }
   }
 
   _generateAlternative(title, flags) {
     let clean = title;
 
+    // 1. Clean code modification phrases
+    clean = clean.replace(/\bcreate\s+or\s+modify\b/gi, "create custom");
+    clean = clean.replace(/\bmodify\b/gi, "develop");
+
+    // 2. Clean repetitive synonym combinations
+    clean = clean.replace(/\bexpert\s+advisor\s+ea\b/gi, "Expert Advisor");
+    clean = clean.replace(/\bbot\s+expert\s+advisor\s+eas\b/gi, "Expert Advisor");
+    clean = clean.replace(/\bexpert\s+advisor\s+eas\s+trading\s+bot\b/gi, "trading Expert Advisor");
+    clean = clean.replace(/\bexpert\s+advisor\s+eas\b/gi, "Expert Advisor");
+    clean = clean.replace(/\bexpert\s+advisor\s+or\s+trading\s+robot\b/gi, "trading Expert Advisor");
+
+    // 3. Known policy replacements
     const replacements = {
       "pass prop firm": "build prop firm compliant risk EA",
       "prop firm bot": "risk-managed prop firm EA",
@@ -193,7 +256,7 @@ class RiskAnalysisEngine {
     };
 
     flags.forEach(flag => {
-      const target = flag.matchedWord.toLowerCase();
+      const target = (flag.matchedWord || "").toLowerCase();
       for (const [bad, good] of Object.entries(replacements)) {
         if (target.includes(bad)) {
           const reg = new RegExp(`\\b${bad}\\b`, "gi");
